@@ -1,0 +1,25 @@
+version: '3.6'
+services:
+  web:
+    build: ./
+    image: gargamel
+    container_name: gargamel-web
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+        - 80:80
+    volumes:
+      - ./www:/var/www/html
+
+  db:
+    image: mysql:5.7
+    container_name: gargamel-db
+    ports:
+     - "2306:3306"
+    command: --max-allowed-packet=67108864
+    environment:
+      MYSQL_ROOT_PASSWORD: Oikjijok01
+      MYSQL_DATABASE: gargamel
+      MYSQL_USER: root
