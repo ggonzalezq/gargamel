@@ -7,7 +7,10 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 RUN apt-get install -y vim
 RUN echo "alias ll='ls -alF'" >> /root/.bashrc
 
-COPY ./www /var/www/html
-COPY ./etc/apache/000-default.conf /etc/apache2/sites-available/
+COPY ./web /var/www/html
+COPY ./etc/apache/api-gargamel.conf /etc/apache2/sites-available/
+RUN ln -s /etc/apache2/sites-available/api-gargamel.conf /etc/apache2/sites-enabled/api-gargamel.conf
+COPY ./etc/apache/gargamel.conf /etc/apache2/sites-available/
+RUN ln -s /etc/apache2/sites-available/gargamel.conf /etc/apache2/sites-enabled/gargamel.conf
 
 WORKDIR /var/www/html
